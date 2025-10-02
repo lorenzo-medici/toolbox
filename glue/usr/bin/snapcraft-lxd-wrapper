@@ -290,7 +290,7 @@ lxd_ensure_container () {
   fi
 
   cuid="0" # root
-  lxc config set "${container_name}" raw.idmap "both $(uid "${USER}" < /etc/passwd) ${cuid}"
+  lxc config set "${container_name}" raw.idmap "both $(id -u "${USER}") ${cuid}"
   # check if kernel version is 5.x, enough to enable mknod interception, to support debootstrap
   # we cannot enable it for all the kernels, container would refuse to boot
   if [ "$(uname -a | awk '{print $3}' | awk -F . '{print $1}')" -ge 5 ]; then
